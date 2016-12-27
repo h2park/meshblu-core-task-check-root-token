@@ -14,7 +14,7 @@ class CheckToken
     callback null, response
 
   do: (request, callback) =>
-    {uuid,token} = request.metadata.auth
+    {uuid,token} = request.metadata.auth ? {}
     return @_doCallback request, 401, callback unless uuid? and token?
 
     @rootTokenManager.verifyToken {uuid, token}, (error, verified) =>

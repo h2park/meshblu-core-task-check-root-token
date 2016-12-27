@@ -72,3 +72,20 @@ describe 'CheckRootToken', ->
             status: 'Unauthorized'
 
         expect(@response).to.deep.equal expectedResponse
+
+    context 'when given an invalid auth object', ->
+      beforeEach (done) ->
+        request =
+          metadata:
+            responseId: 'axed'
+
+        @sut.do request, (error, @response) => done error
+
+      it 'should respond with a 422', ->
+        expectedResponse =
+          metadata:
+            responseId: 'axed'
+            code: 401
+            status: 'Unauthorized'
+
+        expect(@response).to.deep.equal expectedResponse
